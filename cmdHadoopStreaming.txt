@@ -1,0 +1,5 @@
+hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming.jar -input hadoopStreaming/ -output outputHSP/ -mapper "python mapperWordCount.py" -reducer "python reducerWordCount.py" -file mapperWordCount.py -file reducerWordCount.py -file stopwords_en.txt
+
+hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming.jar -input outputHSP/part-00000 -output outputHSP2/ -mapper "python mapperWordPerDoc.py" -reducer "python reducerWordPerDoc.py" -file mapperWordPerDoc.py -file reducerWordPerDoc.py
+
+hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming.jar -input outputHSP2/part-00000 -output outputHSP3/ -mapper "python mapperTfidf.py" -reducer "python reducerTfidf.py" -file mapperTfidf.py -file reducerTfidf.py
